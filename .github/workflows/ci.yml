@@ -28,6 +28,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://fake:fake@localhost/fake
           OPENWEATHER_API_KEY: fakekey
+          PYTHONPATH: ${{ github.workspace }}
 
   build:
     needs: test
