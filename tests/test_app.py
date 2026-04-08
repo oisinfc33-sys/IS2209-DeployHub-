@@ -16,14 +16,6 @@ def client():
     return app.test_client()
 
 
-@pytest.fixture
-def client():
-    with patch("app.database.init_db"):
-        app = create_app()
-    app.config["TESTING"] = True
-    return app.test_client()
-
-
 def test_health_endpoint_db_down(client):
     with patch("app.routes.get_connection", side_effect=Exception("no db")):
         res = client.get("/health")
