@@ -53,4 +53,5 @@ def test_health_endpoint_reports_dependencies(client):
     mock_conn = MagicMock()
     with patch("app.routes.get_connection", return_value=mock_conn):
         res = client.get("/health")
-        assert res.st
+        assert res.status_code == 200
+        assert res.get_json()["db"] is True
