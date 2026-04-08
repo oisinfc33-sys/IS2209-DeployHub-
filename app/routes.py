@@ -61,4 +61,4 @@ def status():
     except Exception as e:
         logger.error("Status page DB error: %s", str(e))
 
-        return render_template("status.html", db_ok=db_ok, recent_count=recent_count)
+    return render_template("status.html", db_ok=db_ok, recent_count=recent_count)

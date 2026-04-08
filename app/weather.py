@@ -1,6 +1,6 @@
 import os
-import logging
 import requests
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -29,8 +29,6 @@ def get_weather(city: str) -> dict:
             return {"error": "Weather API error"}
 
         data = response.json()
-        wind_speed = round(data["wind"]["speed"] * 3.6, 1)
-        visibility = data.get("visibility")
 
         return {
             "city": data["name"],
@@ -38,8 +36,6 @@ def get_weather(city: str) -> dict:
             "temperature": data["main"]["temp"],
             "feels_like": data["main"]["feels_like"],
             "humidity": data["main"]["humidity"],
-            "wind_speed": wind_speed,
-            "visibility": visibility,
             "conditions": data["weather"][0]["description"].capitalize(),
             "icon": data["weather"][0]["icon"],
         }
