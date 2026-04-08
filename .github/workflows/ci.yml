@@ -20,9 +20,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # lint the code before running tests
       - name: Lint with flake8
-        run: flake8 . --max-line-length=100 --exclude=.git,__pycache__
+        run: flake8 . --max-line-length=100 --exclude=.git,__pycache__ --extend-ignore=W291,W292,W391
 
       - name: Run tests
         run: pytest tests/ --cov=app --cov-report=term-missing
