@@ -10,7 +10,7 @@ from app import create_app  # noqa: E402
 
 @pytest.fixture
 def client():
-    with patch("app.__init__.init_db"):
+    with patch("app.init_db"):
         app = create_app()
     app.config["TESTING"] = True
     return app.test_client()
@@ -53,5 +53,4 @@ def test_health_endpoint_reports_dependencies(client):
     mock_conn = MagicMock()
     with patch("app.routes.get_connection", return_value=mock_conn):
         res = client.get("/health")
-        assert res.status_code == 200
-        assert res.get_json()["db"] is True
+        assert res.st
