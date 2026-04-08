@@ -3,7 +3,7 @@
 A Flask web service integrating OpenWeatherMap API and PostgreSQL, built with CI/CD via GitHub Actions and deployed on Render.
 
 ## Live URL
-[Add your Render URL here after deployment]
+[https://is2209-deployhub.onrender.com]
 
 ## Setup
 
