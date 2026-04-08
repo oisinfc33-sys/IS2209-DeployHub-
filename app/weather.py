@@ -1,6 +1,6 @@
 import os
-import requests
 import logging
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -30,21 +30,26 @@ def get_weather(city: str) -> dict:
 
         data = response.json()
 
+        wind_speed = round(data["wind"]["speed"] * 3.6, 1)
+        visibility = data.get("visibility")
+
         return {
             "city": data["name"],
             "country": data["sys"]["country"],
             "temperature": data["main"]["temp"],
             "feels_like": data["main"]["feels_like"],
             "humidity": data["main"]["humidity"],
+            "wind_speed": wind_speed,
+            "visibility": visibility,
             "conditions": data["weather"][0]["description"].capitalize(),
             "icon": data["weather"][0]["icon"],
         }
 
-        except requests.exceptions.Timeout:
+    except requests.exceptions.Timeout:
         logger.warning("OpenWeatherMap request timed out for city: %s", city)
         return {"error": "Weather service timed out, please try again"}
 
-  except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException as e:
         logger.error("Failed to contact weather service: %s", str(e))
         return {"error": "Failed to contact weather service", "details": str(e)}
 
