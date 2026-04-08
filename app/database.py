@@ -8,19 +8,23 @@ def get_connection():
 def init_db():
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS searches (
-            id SERIAL PRIMARY KEY,
-            city VARCHAR(100) NOT NULL,
-            country VARCHAR(10),
-            temperature FLOAT,
-            description VARCHAR(200),
-            searched_at TIMESTAMP DEFAULT NOW()
-        )
-    """)
-    conn.commit()
-    cur.close()
-    conn.close()
+    try:
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS searches (
+                id SERIAL PRIMARY KEY,
+                city VARCHAR(100) NOT NULL,
+                country VARCHAR(10),
+                temperature FLOAT,
+                description VARCHAR(200),
+                searched_at TIMESTAMP DEFAULT NOW()
+            )
+        """)
+        conn.commit()
+    except Exception:
+        conn.rollback()
+    finally:
+        cur.close()
+        conn.close()
 
 def save_search(city, country, temperature, description):
     conn = get_connection()
