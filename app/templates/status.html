@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Status</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .ok { color: green; } .fail { color: red; }
+        nav a { margin-right: 15px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <nav><a href="/">Home</a><a href="/status">Status</a></nav>
+    <h1>System Status</h1>
+    <p>Database: <strong class="{{ 'ok' if db_ok else 'fail' }}">{{ '✅ Connected' if db_ok else '❌ Unreachable' }}</strong></p>
+    <p>Total searches stored: <strong>{{ recent_count }}</strong></p>
+    <p><a href="/health">/health (JSON)</a></p>
+</body>
+</html>
