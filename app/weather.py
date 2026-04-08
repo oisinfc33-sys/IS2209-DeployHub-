@@ -26,10 +26,9 @@ def get_weather(city: str) -> dict:
             return {"error": "Invalid API key"}
 
         if response.status_code != 200:
-            return {"error": "Weather API error", "api_response": response.json()}
+            return {"error": "Weather API error"}
 
         data = response.json()
-
         wind_speed = round(data["wind"]["speed"] * 3.6, 1)
         visibility = data.get("visibility")
 
@@ -51,5 +50,4 @@ def get_weather(city: str) -> dict:
 
     except requests.exceptions.RequestException as e:
         logger.error("Failed to contact weather service: %s", str(e))
-        return {"error": "Failed to contact weather service", "details": str(e)}
-
+        return {"error": "Failed to contact weather service"}

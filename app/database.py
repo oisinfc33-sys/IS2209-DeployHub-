@@ -54,4 +54,3 @@ def get_recent_searches(limit=10):
     cur.close()
     conn.close()
     return results
-
