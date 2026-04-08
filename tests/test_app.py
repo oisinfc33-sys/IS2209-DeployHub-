@@ -10,7 +10,7 @@ from app import create_app  # noqa: E402
 
 @pytest.fixture
 def client():
-    with patch("app.database.init_db"):
+    with patch("app.__init__.init_db"):
         app = create_app()
     app.config["TESTING"] = True
     return app.test_client()
@@ -34,8 +34,7 @@ def test_returns_joined_result_when_both_sources_available(client):
     mock_weather = {
         "city": "Dublin", "country": "IE", "temperature": 12.0,
         "feels_like": 10.0, "humidity": 80,
-        "conditions": "Cloudy", "icon": "04d",
-        "wind_speed": 15.0, "visibility": 10000
+        "conditions": "Cloudy", "icon": "04d"
     }
     with patch("app.routes.get_weather", return_value=mock_weather), \
             patch("app.routes.save_search"):
@@ -45,8 +44,7 @@ def test_returns_joined_result_when_both_sources_available(client):
 
 
 def test_graceful_degradation_on_upstream_failure(client):
-    error = {"error": "Failed to contact weather service"}
-    with patch("app.routes.get_weather", return_value=error):
+    with patch("app.routes.get_weather", return_value={"error": "Service unavailable"}):
         res = client.get("/weather?city=Dublin")
         assert "error" in res.get_json()
 
