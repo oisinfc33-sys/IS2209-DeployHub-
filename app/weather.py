@@ -44,7 +44,7 @@ def get_weather(city: str) -> dict:
         logger.warning("OpenWeatherMap request timed out for city: %s", city)
         return {"error": "Weather service timed out, please try again"}
 
-    except requests.exceptions.RequestException as e:
+  except requests.exceptions.RequestException as e:
         logger.error("Failed to contact weather service: %s", str(e))
         return {"error": "Failed to contact weather service", "details": str(e)}
 
